@@ -1,22 +1,23 @@
 package vn.topica.ttmd.service;
 
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vn.topica.ttmd.bo.Test;
 
+import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
 @Service
-@Transactional
 public class TestServiceImpl implements TestService {
     @Autowired
-    private SessionFactory sessionFactory;
+    private EntityManager entityManager;
 
     @Override
+    @Transactional
     public Test doInsert(Test test) {
         try {
-            sessionFactory.getCurrentSession().save(test);
+            test.setName("Test " + System.currentTimeMillis());
+            entityManager.persist(test);
         } finally {
             return test;
         }
