@@ -1,19 +1,19 @@
 package vn.topica.ttmd.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vn.topica.ttmd.bo.Test;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
 @Service
+@Transactional
 public class TestServiceImpl implements TestService {
-    @Autowired
+    @PersistenceContext
     private EntityManager entityManager;
 
     @Override
-    @Transactional
     public Test doInsert(Test test) {
         try {
             test.setName("Test " + System.currentTimeMillis());
